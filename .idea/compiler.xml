@@ -10,6 +10,7 @@
         <module name="poo-web" />
         <module name="ms-gateway-server" />
         <module name="ms-pedido" />
+        <module name="ms-auth" />
         <module name="ms-cofig-server" />
         <module name="ms-cliente-service" />
         <module name="ms-registry-server" />
@@ -19,6 +20,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ms-auth" options="-parameters" />
       <module name="ms-catalogo" options="-parameters" />
       <module name="ms-cliente-service" options="-parameters" />
       <module name="ms-cofig-server" options="-parameters" />
