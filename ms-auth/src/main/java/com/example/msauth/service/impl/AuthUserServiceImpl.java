@@ -1,6 +1,5 @@
 package com.example.msauth.service.impl;
 
-
 import com.example.msauth.dto.AuthUserDto;
 import com.example.msauth.entity.AuthUser;
 import com.example.msauth.entity.TokenDto;
@@ -14,9 +13,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
+
+
 import java.util.Optional;
-
-
 @Service
 public class AuthUserServiceImpl implements AuthUserService {
     @Autowired
@@ -29,7 +28,7 @@ public class AuthUserServiceImpl implements AuthUserService {
 
     @Override
     public AuthUser save(AuthUserDto authUserDto) {
-        Optional<AuthUser> user = authUserRepository.findByUsername(authUserDto.getUserName());
+        Optional<AuthUser> user = authUserRepository.findByUserName(authUserDto.getUserName());
         if (user.isPresent())
             return null;
         String password = passwordEncoder.encode(authUserDto.getPassword());
@@ -49,7 +48,7 @@ public class AuthUserServiceImpl implements AuthUserService {
 
     @Override
     public TokenDto login(AuthUserDto authUserDto) {
-        Optional<AuthUser> user = authUserRepository.findByUsername(authUserDto.getUserName());
+        Optional<AuthUser> user = authUserRepository.findByUserName(authUserDto.getUserName());
         if (!user.isPresent())
             return null;
         if (passwordEncoder.matches(authUserDto.getPassword(), user.get().getPassword()))
@@ -65,7 +64,7 @@ public class AuthUserServiceImpl implements AuthUserService {
         if (!jwtProvider.validate(token))
             return null;
         String username = jwtProvider.getUserNameFromToken(token);
-        if (!authUserRepository.findByUsername(username).isPresent())
+        if (!authUserRepository.findByUserName(username).isPresent())
             return null;
         return new TokenDto(token);
     }
